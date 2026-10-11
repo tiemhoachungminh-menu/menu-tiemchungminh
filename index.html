@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MENU tiệm hoa chúng mình</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,"Segoe UI",sans-serif;
+  background:#f2f7fb;color:#2c3e50;line-height:1.6
+}
+:root{
+  --primary:#2e6f95;
+  --primary-dark:#1b4a65;
+  --accent:#73a5c6;
+  --card-bg:#d4e5f0;
+  --white:#fff;
+  --muted:#5b7382;
+  --border:#cbdce7
+}
+button{font:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* NAV */
+header{position:sticky;top:0;z-index:1000;background:rgba(242,247,251,.92);backdrop-filter:blur(16px);border-bottom:1px solid #d4e3ec}
+.nav{max-width:1200px;height:70px;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font:600 23px "Times New Roman",serif;color:var(--primary)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13px;font-weight:600;color:#4a6270;cursor:pointer}
+.nav-links a:hover{color:var(--primary)}
+
+/* HERO */
+.hero{max-width:1200px;margin:auto;padding:70px 24px 55px;display:grid;grid-template-columns:.85fr 1.15fr;gap:45px;align-items:center}
+.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+.hero h1,.section-title,.modal-top h2,.flower-card h3,.budget-card h3,.detail-info h3{
+  font-family:"Times New Roman",serif;font-weight:500
+}
+.hero h1{font-size:clamp(45px,6vw,76px);line-height:1.02;color:var(--primary);margin:18px 0}
+.hero h1 span{display:block;color:var(--accent);font-style:italic}
+.hero-description{max-width:480px;color:#536c7a;font-size:15px;line-height:1.85}
+.hero-buttons{display:flex;gap:12px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.hero-button{display:inline-block;background:var(--primary);color:#fff;padding:13px 22px;border-radius:28px;font-size:13px;transition:.25s;border:0}
+.hero-button:hover{background:var(--primary-dark);transform:translateY(-2px)}
+.hero-button-outline{background:transparent;border:1px solid var(--primary);color:var(--primary)}
+.hero-button-outline:hover{background:var(--primary);color:#fff}
+
+.hero-visual{height:455px;border-radius:34px;overflow:hidden;position:relative;background:var(--card-bg)}
+.hero-visual img{width:100%;height:100%;object-fit:cover}
+.hero-label{position:absolute;left:20px;bottom:20px;padding:10px 16px;border-radius:25px;background:rgba(255,255,255,.92);font-size:12px;color:var(--primary)}
+
+/* COMMON */
+section{max-width:1200px;margin:auto;padding:65px 24px}
+.section-head{margin-bottom:28px}
+.section-title{font-size:clamp(34px,4vw,47px);color:var(--primary);margin-top:6px}
+.section-description{max-width:680px;margin-top:7px;color:var(--muted);font-size:14px}
+
+/* FEATURED - KHUNG VÒM CUNG ĐỒNG NHẤT KÍCH THƯỚC */
+.featured-track-wrap{overflow:hidden;width:100%;position:relative;padding:10px 0}
+.featured-track{display:flex;gap:16px;overflow-x:auto;scroll-behavior:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.featured-track::-webkit-scrollbar{display:none}
+.featured-card{
+  flex:0 0 260px;width:260px;height:360px;border-radius:130px 130px 22px 22px;overflow:hidden;
+  background:var(--card-bg);position:relative;cursor:pointer;flex-shrink:0;box-shadow:0 8px 22px rgba(46,111,149,0.12);
+  transition:transform 0.3s ease
+}
+.featured-card:hover{transform:translateY(-6px)}
+.featured-card img{width:100%;height:100%;object-fit:cover}
+
+/* FLOWER CATEGORIES */
+.category-scroll{display:flex;gap:15px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.category-scroll::-webkit-scrollbar{display:none}
+.flower-card{
+  flex:0 0 215px;height:285px;border-radius:25px;overflow:hidden;position:relative;
+  background:var(--card-bg);cursor:pointer;box-shadow:0 10px 25px rgba(46,111,149,.07);
+  transition:.3s
+}
+.flower-card.best-seller{
+  border:2.5px solid var(--accent);
+  box-shadow:0 12px 32px rgba(46,111,149,0.22);
+  transform:translateY(-2px);
+}
+.flower-card.best-seller:hover{
+  transform:translateY(-7px);
+  box-shadow:0 18px 40px rgba(46,111,149,0.32);
+}
+.flower-card img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.flower-card:hover img{transform:scale(1.05)}
+.flower-card:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(27,74,101,.88),rgba(27,74,101,.02) 62%)
+}
+.flower-info{position:absolute;z-index:2;left:18px;right:18px;bottom:17px;color:#fff}
+.flower-number{font-size:10px;letter-spacing:2px;color:#d5e7f2}
+.flower-card h3{font-size:25px;line-height:1.05;margin:4px 0 9px}
+.price-pill{
+  display:inline-block;background:rgba(255,255,255,.9);color:var(--primary);
+  padding:5px 10px;border-radius:20px;font-size:11px
+}
+.bestseller-badge{
+  position:absolute;top:12px;right:12px;background:linear-gradient(135deg, #2e6f95, #1b4a65);color:#fff;
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:5px 11px;border-radius:15px;z-index:3;
+  box-shadow:0 4px 12px rgba(46,111,149,0.35);border:1px solid rgba(255,255,255,0.4);
+}
+
+/* BUDGET */
+.budget-box{
+  padding:40px;border-radius:32px;
+  background:linear-gradient(135deg,#e2eff7 0%,#eaf4fa 52%,#f3f8fd 100%);
+  border:1px solid #d2e4ef
+}
+.budget-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.budget-button{
+  border:1px solid #b8d4e5;background:rgba(255,255,255,.9);
+  color:#436173;border-radius:24px;padding:10px 17px;font-size:13px
+}
+.budget-button.active,.budget-button:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.budget-products{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:27px}
+.budget-card{
+  height:245px;border-radius:22px;overflow:hidden;position:relative;background:var(--card-bg);
+  transition:.3s;cursor:pointer
+}
+.budget-card:hover{transform:translateY(-5px)}
+.budget-card img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.budget-card:hover img{transform:scale(1.05)}
+.budget-card:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(27,74,101,.86),rgba(27,74,101,0) 65%)
+}
+.budget-info{position:absolute;z-index:2;left:16px;right:16px;bottom:15px;color:#fff}
+.budget-index{font-size:9px;letter-spacing:2px;color:#d5e7f2}
+.budget-card h3{font-size:20px;line-height:1.05;margin:4px 0 8px}
+.budget-card .price-pill{font-size:10px}
+.budget-empty{grid-column:1/-1;background:rgba(255,255,255,.7);padding:20px;border-radius:18px;color:var(--muted);font-size:13px}
+.budget-note-box{grid-column:1/-1;background:rgba(46,111,149,0.08);border:1px dashed var(--primary);padding:14px 18px;border-radius:16px;color:var(--primary);font-size:13px;margin-bottom:5px;font-weight:600;}
+
+/* MODAL CHUNG */
+.modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(18,48,65,.68);padding:25px;overflow-y:auto}
+.modal.show{display:flex;justify-content:center;align-items:center}
+.modal-box{width:min(1150px,100%);max-height:92vh;margin:auto;background:#f5f9fc;border-radius:30px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.modal-top{padding:25px 32px 15px;border-bottom:1px solid #d9e6f0;flex-shrink:0}
+.modal-top h2{font-size:38px;color:var(--primary);margin-top:4px}
+.modal-top p{margin-top:4px;color:var(--muted);max-width:720px;font-size:13px}
+.close-modal{position:absolute;right:22px;top:20px;width:40px;height:40px;border:0;border-radius:50%;background:#d6e5f0;color:var(--primary);font-size:22px;cursor:pointer}
+
+/* Thanh nút bấm phụ đề dính ở đầu */
+.subcategory-list{display:flex;gap:8px;overflow-x:auto;padding:14px 32px;scrollbar-width:none;position:sticky;top:0;background:#f5f9fc;z-index:10;flex-shrink:0;border-bottom:1px solid #e1ecf4}
+.subcategory-list::-webkit-scrollbar{display:none}
+.subcategory-button{white-space:nowrap;border:1px solid #b8d4e5;background:#fff;color:#49677a;padding:7px 14px;border-radius:20px;font-size:12px;transition:.2s}
+.subcategory-button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* CHI TIẾT DANH MỤC HOA */
+.details{padding:15px 32px 35px;display:flex;flex-direction:column;gap:25px;overflow-y:auto;flex-grow:1;scroll-behavior:smooth}
+.detail-item{
+  display:grid;grid-template-columns:1fr 1.8fr;gap:20px;padding:22px 0;
+  border-bottom:1px solid #d9e6f0;scroll-margin-top:15px;align-items:center
+}
+.detail-item:last-child{border-bottom:0}
+.detail-info{display:flex;flex-direction:column;justify-content:center;padding:5px 0}
+.detail-info .number{font-size:10px;letter-spacing:2px;color:#8aa3b3}
+.detail-info h3{font-size:24px;color:var(--primary);margin-top:4px}
+.detail-price{width:max-content;margin-top:6px;background:#d8e8f2;color:#395d73;padding:4px 10px;border-radius:18px;font-size:11px}
+.detail-info p{margin-top:8px;color:#557080;font-size:13px;line-height:1.6}
+.detail-note{color:var(--primary)!important;font-size:11px!important;margin-top:6px!important;font-weight:600}
+
+.detail-track-wrap{position:relative;overflow:hidden;padding:10px 0}
+.detail-track{
+  display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;touch-action:pan-x;padding:10px 15px;align-items:center;
+}
+.detail-track::-webkit-scrollbar{display:none}
+.detail-image{
+  flex:0 0 150px;height:210px;width:150px;object-fit:cover;border-radius:16px;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer;
+}
+.detail-image:hover{transform:scale(1.03);box-shadow:0 8px 20px rgba(46,111,149,0.2)}
+
+/* LIGHTBOX PHÓNG TO ẢNH CÓ NÚT CHUYỂN TIẾP */
+.lightbox{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.88);justify-content:center;align-items:center;padding:20px}
+.lightbox.show{display:flex}
+.lightbox img{max-width:80vw;max-height:85vh;border-radius:16px;object-fit:contain;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.close-lightbox{position:absolute;right:25px;top:20px;width:45px;height:45px;border:0;border-radius:50%;background:#fff;color:#000;font-size:24px;cursor:pointer;z-index:3010}
+.lightbox-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.2);color:#fff;border:0;width:50px;height:50px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:0.2s;z-index:3010}
+.lightbox-btn:hover{background:rgba(255,255,255,0.4)}
+.lightbox-prev{left:25px}
+.lightbox-next{right:25px}
+
+/* POLICY CONTENT */
+.policy-content{padding:25px 32px;overflow-y:auto;flex-grow:1;font-size:13px;color:#4a6270;line-height:1.7}
+.policy-content h4{color:var(--primary);font-size:16px;margin:18px 0 8px;font-family:"Times New Roman",serif}
+.policy-content p{margin-bottom:8px}
+.policy-content ul{margin-left:20px;margin-bottom:8px}
+
+footer{text-align:center;border-top:1px solid #d9e6f0;padding:35px 20px}
+footer strong{font:600 23px "Times New Roman",serif;color:var(--primary)}
+footer p{font-size:12px;color:#7892a2;margin-top:5px}
+
+/* MOBILE */
+@media(max-width:800px){
+  .nav{height:62px;padding:0 18px}.logo{font-size:19px}.nav-links{display:none}
+  .hero{display:flex;flex-direction:column;padding:42px 18px 30px;gap:30px}
+  .hero h1{font-size:46px}.hero-visual{height:360px;border-radius:24px}
+  section{padding:48px 18px}.section-title{font-size:35px}
+  .featured-card{flex:0 0 200px;width:200px;height:280px;border-radius:100px 100px 18px 18px}
+  .flower-card{flex-basis:190px;height:270px}
+  .budget-box{padding:27px 20px}.budget-products{grid-template-columns:repeat(2,1fr);gap:11px}
+  .budget-card{height:215px}
+  .modal{padding:0}.modal-box{max-height:100vh;height:100vh;border-radius:0}
+  .modal-top{padding:20px 18px 12px;padding-right:60px}.modal-top h2{font-size:28px}
+  .subcategory-list{padding:12px 18px}
+  .details{padding:10px 18px 25px}
+  .detail-item{grid-template-columns:1fr;gap:15px;padding:18px 0}
+  .detail-image{flex:0 0 135px;width:135px;height:190px}
+  .lightbox-btn{width:40px;height:40px;font-size:20px}
+  .lightbox-prev{left:10px}
+  .lightbox-next{right:10px}
+}
+</style>
+</head>
+
+<body>
+<header>
+<nav class="nav">
+  <div class="logo">tiệm hoa chúng mình</div>
+  <ul class="nav-links">
+    <li><a href="#home">Trang chủ</a></li>
+    <li><a href="#featured">Mẫu nổi bật</a></li>
+    <li><a href="#categories">Mẫu hoa</a></li>
+    <li><a href="#budget">Ngân sách</a></li>
+    <li><a onclick="openPolicyModal()">Chính sách</a></li>
+  </ul>
+</nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div>
+    <div class="eyebrow">flower menu · 2026</div>
+    <h1>MENU <span>tiệm hoa</span> chúng mình</h1>
+    <p class="hero-description">Một góc nhỏ để nàng chọn mẫu hoa thật xinh, từ những bó Lily nhẹ nhàng đến những mẫu phối nổi bật cho ngày đặc biệt.</p>
+    <div class="hero-buttons">
+      <a class="hero-button" href="#categories">Xem các mẫu hoa →</a>
+      <button class="hero-button hero-button-outline" onclick="openPolicyModal()">Xem chính sách</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=90" alt="Hoa">
+    <div class="hero-label">những mẫu hoa chúng mình yêu thích</div>
+  </div>
+</section>
+
+<!-- MẪU NỔI BẬT (10 ẢNH) -->
+<section id="featured">
+  <div class="section-head">
+    <div class="eyebrow">our favorites</div>
+    <h2 class="section-title">Mẫu nổi bật</h2>
+  </div>
+  <div class="featured-track-wrap" id="featuredWrap">
+    <div class="featured-track" id="featuredTrack">
+      <div class="featured-card" onclick="openFeaturedLightbox(0)"><img src="maunoibat1.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(1)"><img src="maunoibat2.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(2)"><img src="maunoibat3.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(3)"><img src="maunoibat4.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(4)"><img src="maunoibat5.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(5)"><img src="maunoibat6.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(6)"><img src="maunoibat7.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(7)"><img src="maunoibat8.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(8)"><img src="maunoibat9.jpg"></div>
+      <div class="featured-card" onclick="openFeaturedLightbox(9)"><img src="maunoibat10.jpg"></div>
+    </div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="section-head">
+    <div class="eyebrow">flower collection</div>
+    <h2 class="section-title">Mẫu hoa ngày lễ</h2>
+    <p class="section-description">Mỗi dòng hoa có hình minh họa để nàng dễ hình dung. Chạm vào mẫu để xem các phân loại bên trong.</p>
+  </div>
+  <div class="category-scroll" id="categoryScroll"></div>
+</section>
+
+<section id="budget">
+  <div class="budget-box">
+    <div class="eyebrow">choose your budget</div>
+    <h2 class="section-title">Chọn theo ngân sách</h2>
+    <p class="section-description">Chọn khoảng ngân sách để xem nhanh những mẫu hoa phù hợp.</p>
+    <div class="budget-buttons">
+      <button class="budget-button active" onclick="filterBudget('under300',this)">Dưới 300K</button>
+      <button class="budget-button" onclick="filterBudget('300',this)">300K – 399K</button>
+      <button class="budget-button" onclick="filterBudget('400',this)">400K – 499K</button>
+      <button class="budget-button" onclick="filterBudget('500',this)">500K – 699K</button>
+      <button class="budget-button" onclick="filterBudget('700',this)">700K+</button>
+    </div>
+    <div class="budget-products" id="budgetProducts"></div>
+  </div>
+</section>
+</main>
+
+<!-- MODAL DANH MỤC HOA -->
+<div class="modal" id="categoryModal">
+  <div class="modal-box">
+    <button class="close-modal" onclick="closeModal()">×</button>
+    <div class="modal-top">
+      <div class="eyebrow">flower collection</div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+    </div>
+    <div class="subcategory-list" id="subcategoryList"></div>
+    <div class="details" id="detailsContainer" onscroll="handleDetailsScroll()"></div>
+  </div>
+</div>
+
+<!-- MODAL CHÍNH SÁCH TIỆM - NGUYÊN BẢN ĐẦY ĐỦ -->
+<div class="modal" id="policyModal">
+  <div class="modal-box" style="max-width: 800px;">
+    <button class="close-modal" onclick="closePolicyModal()">×</button>
+    <div class="modal-top">
+      <div class="eyebrow">information & policies</div>
+      <h2>Chính sách đặt hoa & giao nhận</h2>
+      <p>Thông tin quan trọng giúp tiệm chuẩn bị đơn hàng chu đáo nhất cho Bạn.</p>
+    </div>
+    <div class="policy-content">
+      <h4>A. Lưu ý về việc đặt & nhận hoa dịp lễ</h4>
+      <p><strong>1. Cú pháp Đặt hoa nhanh – Fast Order:</strong><br>
+      Để được tư vấn nhanh chóng và ưu tiên, Bạn vui lòng gửi thông tin theo mẫu:</p>
+      <ul>
+        <li>Mã sản phẩm:</li>
+        <li>Ngày & khung giờ nhận hoa: Sáng / Chiều / Tối</li>
+        <li>Tên người nhận:</li>
+        <li>Số điện thoại:</li>
+        <li>Địa chỉ nhận hoa: Địa chỉ chi tiết</li>
+      </ul>
+      <p><strong>2. Xác nhận đơn hàng & thanh toán:</strong> Tiệm sẽ kiểm tra và xác nhận lại đơn. Đơn chỉ được giữ lịch sau khi Bạn cọc hoặc thanh toán trước (mức cọc được thông báo cụ thể khi chốt đơn).</p>
+      
+      <h4>B. Chính sách giao hàng</h4>
+      <p><strong>Phí ship & Vận chuyển:</strong> Tính theo ứng dụng Xanh SM tại thời điểm giao. Tiệm chỉ hỗ trợ giao hỏa tốc để đảm bảo hoa không bị xóc, nghiêng hoặc để lâu trên đường.</p>
+      <p><strong>Khách tự book ship:</strong> Khách có thể tự book (khuyến khích Xanh SM). Tiệm sẽ chụp ảnh xác nhận trước khi bàn giao và không chịu trách nhiệm với sự cố từ phía tài xế sau khi bàn giao.</p>
+      <p><strong>Nhận tại cửa hàng:</strong> Khuyến khích nhận hoa đúng giờ hẹn.</p>
+      <p><strong>Đơn hoa ngày lễ:</strong> Lịch chuẩn bị sắp xếp theo thứ tự đơn hàng, không đảm bảo giao sớm hơn giờ đã chốt nếu ảnh hưởng đơn khác. Thay đổi thời gian cần báo trước ít nhất 2 ngày.</p>
+      <p><strong>Độ trễ dự kiến:</strong> Thời gian nhận hoa có thể dao động 1–2 tiếng do lượng đơn cao, khó tìm shipper giờ cao điểm, ùn tắc, mưa gió hoặc yếu tố phát sinh. Mong Bạn thông cảm và chủ động sắp xếp.</p>
+      <p><strong>Hỗ trợ khách hàng:</strong> Do lượng tin nhắn cao, tiệm có thể phản hồi chậm hơn, mong Bạn kiên nhẫn chờ đợi.</p>
+      
+      <h4>C. Lưu ý chung</h4>
+      <p><strong>Về mẫu hoa:</strong> Hoa làm thủ công, phụ thuộc nguồn hoa/lá phụ từng ngày nên sản phẩm thực tế có thể khác biệt chút ít so với hình mẫu. Tiệm cam kết:</p>
+      <ul>
+        <li>Đúng tone màu chủ đạo</li>
+        <li>Đúng định lượng/giá trị đơn hàng</li>
+        <li>Đảm bảo chất lượng hoa</li>
+        <li>Tổng thể hài hòa và đẹp mắt nhất</li>
+      </ul>
+      <p><strong>Chính sách hoàn tiền:</strong> Không hỗ trợ hoàn tiền khi đã chuẩn bị hoa mà thay đổi ý định/lý do chủ quan. Vấn đề phát sinh dịp lễ xin phép tổng hợp và xử lý sau 20/10 để tập trung hoàn thành đơn.</p>
+      <p><strong>Thay đổi đơn hàng:</strong> Thay đổi mẫu, tone màu, số lượng, thiệp, thời gian hay địa chỉ nhận cần thông báo trước ít nhất 2 ngày.</p>
+      
+      <h4 style="text-align:center; margin-top:24px; color:var(--primary);">🤍 Lời nhắn từ tiệm chúng mình 🤍</h4>
+      <p style="text-align:center;">Vào ngày cao điểm, rất mong Bạn thông cảm cho những bất tiện nhỏ. Hãy nhắn cho tiệm nếu có vấn đề phát sinh để được hỗ trợ tốt nhất. Cảm ơn Bạn đã kiên nhẫn và tin tưởng lựa chọn tiệm! 🤍</p>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX PHÓNG TO ẢNH CÓ NÚT CHUYỂN TIẾP -->
+<div class="lightbox" id="imageLightbox" onclick="if(event.target.id==='imageLightbox') closeLightbox()">
+  <button class="close-lightbox" onclick="closeLightbox()">×</button>
+  <button class="lightbox-btn lightbox-prev" onclick="changeLightboxImg(-1)">❮</button>
+  <img id="lightboxImg" src="" alt="Phóng to">
+  <button class="lightbox-btn lightbox-next" onclick="changeLightboxImg(1)">❯</button>
+</div>
+
+<footer>
+  <strong>tiệm hoa chúng mình</strong>
+  <p>một chút hoa, một chút dịu dàng cho những ngày đặc biệt.</p>
+</footer>
+
+<script>
+const I="https://images.unsplash.com/";
+const img={
+  lily:I+"photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=900&q=85",
+  pink:I+"photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85",
+  blue:I+"photo-1562690868-60bbe7293e94?auto=format&fit=crop&w=900&q=85",
+  green:I+"photo-1520763185298-1b434c919abe?auto=format&fit=crop&w=900&q=85",
+  flower:I+"photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=900&q=85",
+  soft:I+"photo-1487070183336-b863922373d4?auto=format&fit=crop&w=900&q=85",
+  mix:I+"photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=900&q=85"
+};
+
+const flowerData={
+lily:{title:"Lily",description:"Dòng Lily với nhiều cách phối từ nhẹ nhàng, trong trẻo đến nổi bật hơn.",cover:"lymixhong20.jpg",price:"Từ 300K",bestSeller:true,subcategories:[
+["Lily mix hồng", 300, "Lily phối cùng các sắc hồng, tổng thể nhẹ nhàng và nữ tính.", ["lymixhong1.jpg", "lymixhong2.jpg", "lymixhong3.jpg", "lymixhong4.jpg", "lymixhong5.jpg",
+  "lymixhong6.jpg", "lymixhong7.jpg", "lymixhong8.jpg", "lymixhong9.jpg", "lymixhong10.jpg", "lymixhong11.jpg", "lymixhong12.jpg", "lymixhong13.jpg", "lymixhong14.jpg", "lymixhong15.jpg", "lymixhong16.jpg", "lymixhong17.jpg", "lymixhong18.jpg", "lymixhong19.jpg" ]],
+["Lily đậm nhạt", 300, "Phối các sắc độ đậm nhạt để bó hoa có chiều sâu hơn.", ["lydamnhat1.jpg", "lydamnhat2.jpg", "lydamnhat3.jpg", "lydamnhat4.jpg", "lydamnhat5.jpg",
+  "lydamnhat6.jpg", "lydamnhat7.jpg", "lydamnhat8.jpg", "lydamnhat9.jpg","lydamnhat10.jpg",
+  "lydamnhat11.jpg", "lydamnhat12.jpg", "lydamnhat13.jpg"]],
+["Lily vát", 300, "Phối các sắc độ đậm nhạt để bó hoa có chiều sâu hơn.", ["lyvat1.jpg", "lyvat2.jpg", "lyvat3.jpg", "lyvat4.jpg", "lyvat5.jpg",
+  "lyvat6.jpg", "lyvat7.jpg", "lyvat8.jpg", "lyvat9.jpg", "lyvat10.jpg",
+  "lyvat11.jpg", "lyvat12.jpg", "lyvat13.jpg", "lyvat14.jpg", "lyvat15.jpg",
+  "lyvat16.jpg", "lyvat17.jpg", "lyvat18.jpg", "lyvat19.jpg"]],
+["Lily ren",450,"Lily, hoa ren và các sắc độ đậm nhạt tạo thành tổng thể nhiều tầng hoa.", ["lyren1.jpg", "lyren2.jpg", "lyren3.jpg", "lyren4.jpg", "lyren5.jpg", "lyren6.jpg", "lyren7.jpg", "lyren8.jpg", "lyren9.jpg" ]],
+["Lily hồng phấn tai mèo", 300, "Mẫu Lily hồng phấn tai mèo với sắc hồng nhẹ và điểm nhấn riêng.", ["lytaimeo1.jpg", "lytaimeo2.jpg", "lytaimeo3.jpg", "lytaimeo4.jpg", "lytaimeo5.jpg", "lytaimeo6.jpg"]]
+]},
+sofia:{title:"Sofia",description:"Dòng Sofia gồm Sofia trơn và Sofia mix.",cover:"sofiamix1.jpg",price:"Từ 300K",bestSeller:true,subcategories:[
+["Sofia mix",300,"Sofia mix với cách phối nhiều loại hoa, tổng thể mềm mại và có nhiều điểm nhấn.", ["sofiamix1.jpg", "sofiamix2.jpg", "sofiamix3.jpg", "sofiamix4.jpg", "sofiamix5.jpg", "sofiamix6.jpg", "sofiamix7.jpg", "sofiamix8.jpg", "sofiamix9.jpg", "sofiamix10.jpg", "sofiamix11.jpg", "sofiamix12.jpg", "sofiamix13.jpg", "sofiamix14.jpg", "sofiamix15.jpg", "sofiamix16.jpg", "sofiamix17.jpg", "sofiamix18.jpg", "sofiamix19.jpg", "sofiamix20.jpg", "sofiamix21.jpg", "sofiamix22.jpg", "sofiamix23.jpg", "sofiamix24.jpg", "sofiamix25.jpg", "sofiamix26.jpg", "sofiamix27.jpg", "sofiamix28.jpg", "sofiamix29.jpg", "sofiamix30.jpg", "sofiamix31.jpg", "sofiamix32.jpg", "sofiamix33.jpg"]],
+["Sofia trơn",400,"Sofia trơn tập trung vào vẻ đẹp riêng của dòng hoa, tối giản và thanh lịch hơn.", ["sofiatron1.jpg", "sofiatron2.jpg", "sofiatron3.jpg", "sofiatron4.jpg", "sofiatron5.jpg"]]
+]},
+chietxa:{title:"Chiết xạ",description:"Dòng Chiết xạ gồm hai cách phối chính: trơn và mix.",cover:"chietxatron5.jpg",price:"Từ 300K",bestSeller:false,subcategories:[
+["Chiết xạ trơn",300,"Phiên bản trơn với tổng thể gọn gàng, tập trung vào form hoa và màu sắc chính.", ["chietxatron1.jpg", "chietxatron2.jpg", "chietxatron3.jpg", "chietxatron4.jpg", "chietxatron5.jpg", "chietxatron6.jpg", "chietxatron7.jpg" ]],
+["Chiết xạ mix",300,"Phiên bản mix có thêm các loại hoa phụ để tổng thể sinh động hơn.", ["chietxamix1.jpg", "chietxamix2.jpg", "chietxamix3.jpg", "chietxamix4.jpg"]]
+]},
+hongdo:{title:"Hồng đỏ",description:"Dòng hồng đỏ với form tròn cơ bản và form Premium.",cover:"hongdopremium1.jpg",price:"Từ 350K",bestSeller:true,subcategories:[
+["Form tròn cơ bản",350,"Form tròn cơ bản với hồng đỏ làm chủ đạo.", ["hongdotron1.jpg", "hongdotron2.jpg", "hongdotron3.jpg", "hongdotron4.jpg", "hongdotron5.jpg"]],
+["Form Premium",null,"Form Premium với cách xử lý bó hoa chỉn chu và nổi bật hơn.", ["hongdopremium1.jpg", "hongdopremium2.jpg", "hongdopremium3.jpg", "hongdopremium4.jpg", "hongdopremium5.jpg", "hongdopremium6.jpg", "hongdopremium7.jpg", "hongdopremium8.jpg"]]
+]},
+mixhong:{title:"Mix hồng",description:"Những mẫu phối lấy sắc hồng làm điểm nhấn.",cover:"mixhong2.jpg",price:"Từ 250K",bestSeller:true,subcategories:[
+["Mix hồng ngẫu nhiên",250,"Mẫu mix hồng ngẫu nhiên thiết kế xinh xắn, hài hòa.", ["mixhongngaunhien1.jpg", "mixhongngaunhien2.jpg", "mixhongngaunhien3.jpg", "mixhongngaunhien4.jpg", "mixhongngaunhien5.jpg", "mixhongngaunhien6.jpg", "mixhongngaunhien7.jpg", "mixhongngaunhien8.jpg", "mixhongngaunhien9.jpg", "mixhongngaunhien10.jpg", "mixhongngaunhien11.jpg", "mixhongngaunhien12.jpg", 
+"mixhongngaunhien13.jpg", "mixhongngaunhien14.jpg"]],
+["Mix hồng",300,"Mix nhiều loại hoa với sắc hồng làm chủ đạo.", ["mixhong1.jpg", "mixhong2.jpg", "mixhong3.jpg", "mixhong4.jpg", "mixhong5.jpg", "mixhong6.jpg", "mixhong7.jpg", "mixhong8.jpg", "mixhong9.jpg", "mixhong10.jpg", "mixhong11.jpg", "mixhong12.jpg", "mixhong13.jpg", "mixhong14.jpg", "mixhong15.jpg"]]
+]},
+mixgarden:{title:"Mix Garden",description:"Dòng hoa phối phong cách khu vườn tự nhiên, đầy đặn và nhiều màu sắc.",cover:"gardentieuchuan2.jpg",price:"Từ 350K",bestSeller:true,subcategories:[
+["Mix Garden tiêu chuẩn",350,"Bố cục phối theo phong cách khu vườn tươi tắn và sinh động.", ["gardentieuchuan1.jpg", "gardentieuchuan2.jpg", "gardentieuchuan3.jpg", "gardentieuchuan4.jpg", "gardentieuchuan5.jpg",
+  "gardentieuchuan6.jpg", "gardentieuchuan7.jpg", "gardentieuchuan8.jpg", "gardentieuchuan9.jpg", "gardentieuchuan10.jpg"]],
+["Mix Garden cao cấp",500,"Phiên bản lớn hơn với nhiều loại hoa nhập và hoa phụ đặc sắc.", ["gardencaocap1.jpg", "gardencaocap2.jpg", "gardencaocap3.jpg", "gardencaocap4.jpg", "gardencaocap5.jpg", "gardencaocap6.jpg", "gardencaocap7.jpg"]]
+]},
+camtu:{title:"Cẩm tú cầu",description:"Cẩm tú cầu với ba sắc màu: xanh dương, hồng và xanh lá.",cover: "ctchong3.jpg",price:"Từ 300K",bestSeller:false,subcategories:[
+["Cẩm tú cầu xanh dương",300,"Cẩm tú cầu xanh dương tạo cảm giác mát mắt và thanh lịch.", ["ctcxanh1.jpg", "ctcxanh2.jpg", "ctcxanh3.jpg", "ctcxanh4.jpg", "ctcxanh5.jpg", "ctcxanh6.jpg", "ctcxanh7.jpg", "ctcxanh8.jpg", "ctcxanh9.jpg", "ctcxanh10.jpg", "ctcxanh11.jpg"]],
+["Cẩm tú cầu hồng",300,"Cẩm tú cầu hồng mang sắc thái nhẹ nhàng và nữ tính.", ["ctchong1.jpg", "ctchong2.jpg", "ctchong3.jpg", "ctchong4.jpg", "ctchong5.jpg"]],
+["Cẩm tú cầu xanh lá",300,"Cẩm tú cầu xanh lá tạo cảm giác tự nhiên và dễ phối.", ["ctcxanhla1.jpg", "ctcxanhla2.jpg", "ctcxanhla3.jpg", "ctcxanhla4.jpg", "ctcxanhla5.jpg"]]
+]},
+ocque:{title:"Ốc quế",description:"Dòng Ốc quế với ba cách phối nổi bật.",cover:"ocquemixhong1.jpg",price:"Từ 400K",bestSeller:false,subcategories:[
+["Ốc quế mix hồng",400,"Ốc quế phối cùng các sắc hồng, tạo tổng thể mềm mại nhưng vẫn có điểm nhấn.", ["ocquemixhong1.jpg", "ocquemixhong2.jpg", "ocquemixhong3.jpg", "ocquemixhong4.jpg", "ocquemixhong5.jpg","ocquemixhong6.jpg", "ocquemixhong7.jpg"]],
+["Ốc quế cẩm tú cầu",400,"Ốc quế kết hợp cẩm tú cầu, tạo cảm giác đầy đặn và nổi bật hơn.", ["ocquectc1.jpg", "ocquectc2.jpg", "ocquectc3.jpg", "ocquectc4.jpg", "ocquectc5.jpg"]],
+["Ốc quế Lily",400,"Ốc quế kết hợp Lily, tạo mẫu hoa có điểm nhấn rõ hơn.", ["ocquelily1.jpg"]]
+]},
+lang:{title:"Lẵng",description:"Các mẫu lẵng dành cho những dịp cần hình thức trang trọng hơn.",cover:"lang2.jpg",price:"Từ 700K",bestSeller:false,subcategories:[
+["Lẵng hoa",700,"Lẵng hoa lớn thiết kế riêng cho các dịp khai trương hoặc sự kiện trọng đại.", ["lang1.jpg", "lang2.jpg", "lang3.jpg", "lang4.jpg", "lang5.jpg", "lang6.jpg", "lang7.jpg"]]
+]},
+bongdon:{title:"Bông đơn",description:"Các dòng bông đơn để nàng lựa chọn theo từng loại hoa.",cover:"bongdon3.jpg",price:"Từ 30K",bestSeller:false,subcategories:[
+["Bông đơn các dòng",30,"Các mẫu bông đơn với nhiều dòng hoa khác nhau.", ["bongdon1.jpg", "bongdon2.jpg", "bongdon3.jpg", "bongdon4.jpg", "bongdon5.jpg", "bongdon6.jpg"]]
+]}
+};
+
+const categories=[
+["lily","Lily"],["sofia","Sofia"],["chietxa","Chiết xạ"],["hongdo","Hồng đỏ"],
+["mixhong","Mix hồng"],["mixgarden","Mix Garden"],["camtu","Cẩm tú cầu"],["ocque","Ốc quế"],["lang","Lẵng"],["bongdon","Bông đơn"]
+];
+
+function renderCategories(){
+document.getElementById("categoryScroll").innerHTML=categories.map((x,i)=>{
+let d=flowerData[x[0]];
+return `<div class="flower-card ${d.bestSeller?'best-seller':''}" onclick="openCategory('${x[0]}')">
+${d.bestSeller?'<span class="bestseller-badge">★ Best Seller</span>':''}
+<img src="${d.cover}" alt="${x[1]}" loading="lazy">
+<div class="flower-info">
+<div class="flower-number">0${i+1}</div>
+<h3>${x[1]}</h3>
+<span class="price-pill">${d.price}</span>
+</div></div>`;
+}).join("");
+}
+
+const budgetProducts=[
+["Bông đơn các dòng",30,"bongdon1.jpg","bongdon"],
+["Mix hồng ngẫu nhiên",250,"mixhongngaunhien13.jpg","mixhong"],
+["Lily mix hồng",300,"lymixhong20.jpg","lily"],
+["Lily đậm nhạt",300,"lydamnhat11.jpg","lily"],
+["Lily vát",300,"lyvat1.jpg","lily"],
+["Lily hồng phấn tai mèo",300,"lytaimeo1.jpg","lily"],
+["Sofia mix",300,"sofiamix1.jpg","sofia"],
+["Chiết xạ trơn",300,"chietxatron1.jpg","chietxa"],
+["Chiết xạ mix",300,"chietxamix1.jpg","chietxa"],
+["Mix hồng",300,"mixhong1.jpg","mixhong"],
+["Cẩm tú cầu xanh dương",300,"ctcxanh2.jpg","camtu"],
+["Cẩm tú cầu hồng",300,"ctchong3.jpg","camtu"],
+["Cẩm tú cầu xanh lá",300,"ctcxanhla3.jpg","camtu"],
+["Mix Garden tiêu chuẩn",350,"gardentieuchuan1.jpg","mixgarden"],
+["Hồng đỏ form tròn",350,"hongdotron1.jpg","hongdo"],
+["Sofia trơn",400,"sofiatron1.jpg","sofia"],
+["Ốc quế mix hồng",400,"ocquemixhong1.jpg","ocque"],
+["Ốc quế cẩm tú cầu",400,"ocquectc1.jpg","ocque"],
+["Ốc quế Lily",400,"ocquelily1.jpg","ocque"],
+["Lily ren",450,"lyren1.jpg","lily"],
+["Mix Garden cao cấp",500,"gardencaocap1.jpg","mixgarden"],
+["Lẵng hoa",700,"lang1.jpg","lang"],
+["Hồng đỏ Form Premium",750,"hongdopremium1.jpg","hongdo"],
+];
+
+function filterBudget(type,button){
+document.querySelectorAll(".budget-button").forEach(x=>x.classList.remove("active"));
+button.classList.add("active");
+let min=0,max=299;
+if(type==="300"){min=300;max=399}
+if(type==="400"){min=400;max=499}
+if(type==="500"){min=500;max=699}
+if(type==="700"){min=700;max=Infinity}
+
+let list=budgetProducts.filter(x=>x[1]>=min&&x[1]<=max);
+let htmlContent="";
+
+if(type==="under300"){
+  htmlContent += `<div class="budget-note-box">💡 Lưu ý: Dưới 300K khách không được chọn mẫu nhưng tiệm vẫn đảm bảo hoa thiết kế xinh và hài hòa nhất ạ!</div>`;
+}
+
+htmlContent += list.length ? list.map((x,i)=>`
+<div class="budget-card" onclick="openCategory('${x[3]}')">
+<img src="${x[2]}" alt="${x[0]}" loading="lazy">
+<div class="budget-info">
+<div class="budget-index">MẪU ${String(i+1).padStart(2,"0")}</div>
+<h3>${x[0]}</h3>
+<span class="price-pill">${x[1] < 100 ? `Từ ${x[1]}K/bông` : `Từ ${x[1]}K`}</span>
+</div></div>`).join("") : `<div class="budget-empty">Hiện chưa có mẫu được cập nhật trong khoảng ngân sách này.</div>`;
+
+document.getElementById("budgetProducts").innerHTML = htmlContent;
+}
+
+function openCategory(id){
+let d=flowerData[id];
+if(!d) return;
+document.getElementById("categoryModal").classList.add("show");
+document.getElementById("modalTitle").textContent=d.title;
+document.getElementById("modalDescription").textContent=d.description;
+renderSubcategories(d.subcategories);
+renderDetails(d.subcategories);
+document.body.style.overflow="hidden";
+}
+
+function renderSubcategories(items){
+let box=document.getElementById("subcategoryList");
+box.innerHTML=`<button class="subcategory-button active" onclick="scrollToSub(null, this)">Tất cả</button>`+
+items.map((x,i)=>`<button class="subcategory-button" onclick="scrollToSub(${i}, this)">${x[0]}</button>`).join("");
+}
+
+function scrollToSub(index, btn){
+document.querySelectorAll(".subcategory-button").forEach(x=>x.classList.remove("active"));
+btn.classList.add("active");
+let container=document.getElementById("detailsContainer");
+if(index===null){
+  container.scrollTo({top:0, behavior:"smooth"});
+} else {
+  let target=document.getElementById(`sub-item-${index}`);
+  if(target){
+    container.scrollTo({top: target.offsetTop - container.offsetTop - 10, behavior:"smooth"});
+  }
+}
+}
+
+function handleDetailsScroll(){
+let container=document.getElementById("detailsContainer");
+let items=container.querySelectorAll(".detail-item");
+let buttons=document.querySelectorAll(".subcategory-button");
+let scrollPos=container.scrollTop;
+
+items.forEach((item, index)=>{
+  let top=item.offsetTop - container.offsetTop - 30;
+  let height=item.offsetHeight;
+  if(scrollPos >= top && scrollPos < top + height){
+    buttons.forEach(b=>b.classList.remove("active"));
+    if(buttons[index+1]) buttons[index+1].classList.add("active");
+  }
+});
+}
+
+function renderDetails(items){
+let box=document.getElementById("detailsContainer");
+box.innerHTML=items.map((x,i)=>`
+<article class="detail-item" id="sub-item-${i}">
+<div class="detail-info">
+<span class="number">MẪU ${String(i+1).padStart(2,"0")}</span>
+<h3>${x[0]}</h3>
+<span class="detail-price">${x[1]? (x[1] < 100 ? `Từ ${x[1]}K/bông` : `Từ ${x[1]}K`) : "Giá tùy mẫu"}</span>
+<p>${x[2]}</p>
+<p class="detail-note">${x[1]? (x[1] < 100 ? `Giá từ ${x[1]}K/bông.` : `Giá từ ${x[1]}K.`) : "Giá thay đổi theo mẫu."}</p>
+</div>
+<div class="detail-track-wrap">
+<div class="detail-track">
+${x[3].map((imgSrc, imgIndex) => `<img class="detail-image" src="${imgSrc}" alt="${x[0]}" onclick='openLightbox(${JSON.stringify(x[3])},${imgIndex})'>`).join("")}
+</div>
+</div>
+</article>`).join("");
+}
+
+function closeModal(){
+document.getElementById("categoryModal").classList.remove("show");
+document.body.style.overflow="";
+}
+
+/* LIGHTBOX CÓ CHỨC NĂNG CHUYỂN TIẾP (NEXT/PREV) CHO 10 ẢNH NỔI BẬT */
+let lightboxActive=false;
+let resumeFeaturedTimeout;
+let currentLightboxImages=[];
+let currentLightboxIndex=0;
+
+const featuredImagesArray = [
+  "maunoibat1.jpg",
+  "maunoibat2.jpg",
+  "maunoibat3.jpg",
+  "maunoibat4.jpg",
+  "maunoibat5.jpg",
+  "maunoibat6.jpg",
+  "maunoibat7.jpg",
+  "maunoibat8.jpg",
+  "maunoibat9.jpg",
+  "maunoibat10.jpg"
+];
+
+function openFeaturedLightbox(index){
+  openLightbox(featuredImagesArray, index);
+}
+
+function openLightbox(imgArray, index){
+  lightboxActive=true;
+  currentLightboxImages=imgArray;
+  currentLightboxIndex=index;
+  updateLightboxImage();
+  document.getElementById("imageLightbox").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+
+function updateLightboxImage(){
+  document.getElementById("lightboxImg").src=currentLightboxImages[currentLightboxIndex];
+}
+
+function changeLightboxImg(direction){
+  currentLightboxIndex += direction;
+  if(currentLightboxIndex < 0){
+    currentLightboxIndex = currentLightboxImages.length - 1;
+  } else if(currentLightboxIndex >= currentLightboxImages.length){
+    currentLightboxIndex = 0;
+  }
+  updateLightboxImage();
+}
+
+function closeLightbox(){
+  lightboxActive=false;
+  document.getElementById("imageLightbox").classList.remove("show");
+  document.body.style.overflow="";
+  
+  isPausedByAction=true;
+  clearTimeout(resumeFeaturedTimeout);
+  resumeFeaturedTimeout=setTimeout(()=>{
+    isPausedByAction=false;
+  }, 4000);
+}
+
+/* POLICY MODAL */
+function openPolicyModal(){
+document.getElementById("policyModal").classList.add("show");
+document.body.style.overflow="hidden";
+}
+function closePolicyModal(){
+document.getElementById("policyModal").classList.remove("show");
+document.body.style.overflow="";
+}
+
+document.getElementById("categoryModal").addEventListener("click",e=>{if(e.target.id==="categoryModal")closeModal()});
+document.getElementById("policyModal").addEventListener("click",e=>{if(e.target.id==="policyModal")closePolicyModal()});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeModal();
+    closePolicyModal();
+    closeLightbox();
+  } else if(lightboxActive){
+    if(e.key==="ArrowLeft") changeLightboxImg(-1);
+    if(e.key==="ArrowRight") changeLightboxImg(1);
+  }
+});
+
+/* HIỆU ỨNG CHUYỂN ĐỘNG VÒNG TRÒN CHO PHẦN NỔI BẬT */
+const track=document.getElementById("featuredTrack");
+let isUserInteracting=false;
+let isPausedByAction=false;
+let userInteractionTimeout;
+let autoScrollTimer;
+
+track.innerHTML += track.innerHTML;
+
+function startFeaturedAutoScroll(){
+  autoScrollTimer=setInterval(()=>{
+    if(!isUserInteracting && !lightboxActive && !isPausedByAction){
+      track.scrollLeft += 1.2;
+      if(track.scrollLeft >= (track.scrollWidth / 2)){
+        track.scrollLeft = 0;
+      }
+    }
+  }, 25);
+}
+
+track.addEventListener("mousedown",()=>{isUserInteracting=true; clearTimeout(userInteractionTimeout);});
+track.addEventListener("touchstart",()=>{isUserInteracting=true; clearTimeout(userInteractionTimeout);});
+track.addEventListener("scroll",()=>{
+  if(isUserInteracting){
+    clearTimeout(userInteractionTimeout);
+    userInteractionTimeout=setTimeout(()=>{
+      isUserInteracting=false;
+    }, 4000);
+  }
+});
+
+startFeaturedAutoScroll();
+
+renderCategories();
+filterBudget("under300",document.querySelector(".budget-button"));
+</script>
+</body>
+</html>
